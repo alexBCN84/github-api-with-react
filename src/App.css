@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Anaheim|Roboto+Mono');
 .App {
     text-align: center;
 }
@@ -39,4 +40,36 @@
 
 .link {
     text-decoration: none;
+}
+
+.block__separation {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.fa-search {
+    position: absolute;
+    right: -20px;
+    top: 0;
+    font-size: 2em;
+}
+
+.avatar-round {
+    border: 5px solid rgb(60, 60, 60);
+    border-radius: 50%;
+}
+
+p {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.info-tag {
+    font-family: 'Roboto Mono', monospace;
+    color: #ff6666;
+}
+
+.info-data {
+    font-family: 'Anaheim', sans-serif;
 }
