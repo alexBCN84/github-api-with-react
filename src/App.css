@@ -2,9 +2,15 @@
     text-align: center;
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.gitHub-logo {
+    /* animation: App-logo-spin infinite 20s linear; */
+    background-color: black;
+    color: white;
     height: 80px;
+}
+
+.gitHub-logo i {
+    font-size: 5em;
 }
 
 .App-header {
