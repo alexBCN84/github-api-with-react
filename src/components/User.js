@@ -2,6 +2,11 @@ import React from "react"
 
 const User = props =>  {
   const date = props.created_at;
+  const user = () => {
+    const nameOrLogin = props.name || props.username;
+    const saxonGenitive = nameOrLogin[nameOrLogin.length -1] === "s" ? "'" : "'s"
+    return (nameOrLogin + saxonGenitive); 
+  }
   return (
     <div className="info__block">
       <div className="col-xs-12 col-sm-6 col-sm-offset-3"><br/>
@@ -56,6 +61,10 @@ const User = props =>  {
       {
         props.error &&
         <p className="info-tag">{props.error}</p>
+      }
+      {
+        props.html_url &&
+        <a className="btn btn-default" href={props.html_url}>See {user()} profile</a>
       }
     </div> 
   </div>
