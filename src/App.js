@@ -52,7 +52,6 @@ class App extends Component {
     if (!this.state.username) {
       this.setState({error: "You need to enter a valid user name"})
     }
-    console.log(username)
   }
   render() {
     return (
