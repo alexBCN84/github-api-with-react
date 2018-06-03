@@ -15,6 +15,7 @@ class App extends Component {
     followers: null,
     following: null,
     created_at: null,
+    updated_at: null,
     error: null
   }
   getUser = async(e) => {
@@ -33,6 +34,7 @@ class App extends Component {
         followers: user.followers,
         following: user.following,
         created_at: user.created_at,
+        updated_at: user.updated_at,
         error: ""
       })
     } else {
@@ -45,7 +47,8 @@ class App extends Component {
         html_url: undefined,
         followers: undefined,
         following: undefined,
-        created_at: undefined
+        created_at: undefined,
+        updated_at: undefined
       })
     }
 
@@ -71,6 +74,7 @@ class App extends Component {
                 followers={this.state.followers}
                 following={this.state.following}
                 created_at={this.state.created_at}
+                updated_at={this.state.updated_at}
                 error={this.state.error}
               />
             </div>
