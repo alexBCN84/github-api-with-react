@@ -9,6 +9,7 @@ class App extends Component {
     name: null,
     username: null,
     id: null,
+    location: null,
     url: null,
     avatar_url: null,
     html_url: null,
@@ -27,6 +28,7 @@ class App extends Component {
       this.setState({
         name: user.name,
         username: user.login,
+        location: user.location,
         id: user.id,
         url: user.url,
         avatar_url: user.avatar_url,
@@ -41,6 +43,7 @@ class App extends Component {
       this.setState({
         name: undefined,
         username: undefined,
+        location: undefined,
         id: undefined,
         url: undefined,
         avatar_url: undefined,
@@ -67,6 +70,7 @@ class App extends Component {
               <User 
                 name={this.state.name}
                 username={this.state.username}
+                location={this.state.location}
                 id={this.state.id}
                 url={this.state.url}
                 avatar_url={this.state.avatar_url}

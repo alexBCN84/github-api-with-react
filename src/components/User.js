@@ -24,7 +24,7 @@ const User = props =>  {
     const assignMonth = monthNum => {
       let month = ""
       for (let i in dict) {
-        i === monthNum ? month = dict[i] : i 
+        month = i === monthNum ? dict[i] : i 
       }
       return month;
     }
@@ -60,6 +60,13 @@ const User = props =>  {
         <p className="App-intro">
           <span className="info-tag">User Login:&#32;</span> 
           <span className="info-data">{props.username}</span>
+        </p>
+      }
+      {
+        props.location &&
+        <p className="App-intro">
+          <span className="info-tag">Location:&#32;</span> 
+          <span className="info-data">{props.location}</span>
         </p>
       }
       {
@@ -107,7 +114,7 @@ const User = props =>  {
       }
       { 
         props.html_url &&
-        <a className="btn btn-default" href={props.html_url}>See {user(props.name && capitalize(props.name) || props.username)} profile</a>
+        <a className="btn btn-default" href={props.html_url}>See {user((props.name && capitalize(props.name)) || props.username)} profile</a>
       }
     </div> 
   </div>
