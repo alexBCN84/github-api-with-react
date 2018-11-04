@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Container } from 'semantic-ui-react'
 import './App.css';
 import Header from "./components/Header"
-import Form from "./components/Form"
+import SearchUser from "./components/searchUserForm"
 import User from "./components/User"
 
 class App extends Component {
@@ -63,10 +64,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-11 col-sm-8 col-sm-offset-2 block__separation">
-              <Form getUser={this.getUser}/>
+        <Container>
+            <div className="block__separation">
+              <SearchUser getUser={this.getUser}/>
               <User 
                 name={this.state.name}
                 username={this.state.username}
@@ -82,8 +82,7 @@ class App extends Component {
                 error={this.state.error}
               />
             </div>
-          </div>
-        </div>
+            </Container>
       </div>
       
     );
