@@ -1,92 +1,67 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from 'semantic-ui-react'
 import './App.css';
 import Header from "./components/Header"
-import SearchUser from "./components/searchUserForm"
 import User from "./components/User"
+import { useAllUsersRequest, requestUserProfile} from '../src/apiMethods';
+import SearchUser from './components/searchUserForm';
 
-class App extends Component {
-  state = {
-    name: null,
-    username: null,
-    id: null,
-    location: null,
-    url: null,
-    avatar_url: null,
-    html_url: null,
-    followers: null,
-    following: null,
-    created_at: null,
-    updated_at: null,
-    error: null
-  }
-  getUser = async(e) => {
-    e.preventDefault();
-    const username = e.target.elements.username.value;
-    const api_call = await fetch(`https://api.github.com/users/${username}`);
-    const user = await api_call.json();
-    if (username) {
-      this.setState({
-        name: user.name,
-        username: user.login,
-        location: user.location,
-        id: user.id,
-        url: user.url,
-        avatar_url: user.avatar_url,
-        html_url: user.html_url,
-        followers: user.followers,
-        following: user.following,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
-        error: ""
-      })
-    } else {
-      this.setState({
-        name: undefined,
-        username: undefined,
-        location: undefined,
-        id: undefined,
-        url: undefined,
-        avatar_url: undefined,
-        html_url: undefined,
-        followers: undefined,
-        following: undefined,
-        created_at: undefined,
-        updated_at: undefined
-      })
-    }
-
-    if (!this.state.username) {
-      this.setState({error: "You need to enter a valid user name"})
-    }
-  }
-  render() {
-    return (
-      <div className="App">
-        <Header/>
-        <Container>
-            <div className="block__separation">
-              <SearchUser getUser={this.getUser}/>
-              <User 
-                name={this.state.name}
-                username={this.state.username}
-                location={this.state.location}
-                id={this.state.id}
-                url={this.state.url}
-                avatar_url={this.state.avatar_url}
-                html_url={this.state.html_url}
-                followers={this.state.followers}
-                following={this.state.following}
-                created_at={this.state.created_at}
-                updated_at={this.state.updated_at}
-                error={this.state.error}
-              />
-            </div>
-            </Container>
-      </div>
-      
-    );
-  }
+const inputStyle = {
+  width: 200,
+  height: 20,
+  border: '1px solid #1777C2',
+  borderRadius: 2,
+  padding: 15,
+  margin: "20px 0"
 }
 
-export default App;
+export default function App(){
+  const usersList = useAllUsersRequest();
+  const [searchInputValue, setSearchInputValue] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    setFiltered(usersList.filter( userLogin => {
+      return userLogin.login.toLowerCase().includes(searchInputValue)
+    }));
+
+  }, [usersList, searchInputValue]);
+  
+  function onChangeFilterUser(event){
+    setSearchInputValue(event.target.value.toString().toLowerCase())
+  }
+  
+  function handleProfile(username){
+    setUserProfile(requestUserProfile(username,setUserProfile));
+  }
+
+  function handleResults(){
+    if(filtered.length === 0) {
+      return <h1>No matches found</h1>
+    } else {
+      return (
+        <section style={{margin: '20px 0px'}}>
+          {filtered.map(({login}, index) => 
+            <button key={index} onClick={() => handleProfile(login)}>{login}</button>
+          )}
+        </section>
+      );
+    }
+  }
+
+  return (
+    <div>
+      <Header/>
+      <Container>
+        <form>
+          <input placeholder="filter first hundred profiles" value={searchInputValue} onChange={onChangeFilterUser} style={inputStyle}/>
+        </form>
+        {handleResults()}
+        <SearchUser userProfile={userProfile} setUserProfile={setUserProfile} />
+        {userProfile && <User {...userProfile}/>}
+      </Container>
+    </div>
+  );
+}
+
