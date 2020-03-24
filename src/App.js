@@ -25,7 +25,6 @@ export default function App(){
     setFiltered(usersList.filter( userLogin => {
       return userLogin.login.toLowerCase().includes(searchInputValue)
     }));
-    console.log(filtered);
 
   }, [usersList, searchInputValue]);
   
